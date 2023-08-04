@@ -1,0 +1,8 @@
+# Temporary files
+.tmp/
+tmp.*
+*.tmp
+
+# Python files
+.venv/
+__pycache__/
