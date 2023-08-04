@@ -13,6 +13,7 @@ class QuoteSpider(scrapy.Spider):
         AUTHOR_SELECTOR = ".author::text"
         ABOUT_SELECTOR = ".author + a::attr(href)"
         TAGS_SELECTOR = ".tags > .tag::text"
+        NEXT_SELECTOR = ".pager .next a::attr(href)"
 
         for quote in response.css(QUOTE_SELECTOR):
             yield {
@@ -21,3 +22,9 @@ class QuoteSpider(scrapy.Spider):
                 "about": BASE_URL + quote.css(ABOUT_SELECTOR).get(),
                 "tags": quote.css(TAGS_SELECTOR).getall(),
             }
+
+        next_page = response.css(NEXT_SELECTOR).get()
+        if next_page:
+            yield scrapy.Request(
+                response.urljoin(next_page), callback=self.parse
+            )
