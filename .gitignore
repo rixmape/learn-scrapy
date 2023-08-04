@@ -6,3 +6,8 @@ tmp.*
 # Python files
 .venv/
 __pycache__/
+
+# Output files
+/*.log
+/*.csv
+/*.json
